@@ -1,6 +1,6 @@
 from twilio.rest import Client
 account_sid = 'AC0b246b4a64109de691920c953996cded'
-auth_token = '39d2f1d67835d7f25733773c96ef402c'
+auth_token = 'f614d44a7a6552064bd1bce30f6aa879'
 client = Client(account_sid, auth_token)
 
 call = client.calls.create(
