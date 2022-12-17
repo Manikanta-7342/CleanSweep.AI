@@ -14,8 +14,8 @@ Solution:- The solution to solve the above problem is implementing a Garbage Det
 System Workflow:-
 ![Flowchart](https://user-images.githubusercontent.com/80829447/208266806-8d21746e-7aa9-4147-8169-4d3ae4e526b1.png)
 
-Collaborators:
-Mani Kanta: https://github.com/Manikanta-7342
-Akhil: https://github.com/Akhil5347
+Collaborators:  
+Mani Kanta: https://github.com/Manikanta-7342  
+Akhil: https://github.com/Akhil5347  
 Shreyas: https://github.com/ShreyasKuntnal
 
