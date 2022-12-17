@@ -78,7 +78,7 @@ def email_generate(t1, t2, lattitude, longitude):
 #m1,m2,_=st.columns((0.5,1,4))
 # with m1:
 #     image = Image.open("icon.jpg")
-# #     st.image(image)
+
 image = Image.open("icon.jpg")
 st.image(image)
 # with m1:
