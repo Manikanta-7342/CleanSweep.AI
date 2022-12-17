@@ -31,8 +31,8 @@ from twilio.rest import Client
 # response = requests.request("POST", url, data=payload, headers=headers)
 # print(response.text)
 #
-from flask import Flask
-from twilio.twiml.voice_response import VoiceResponse, Gather
+# from flask import Flask
+# from twilio.twiml.voice_response import VoiceResponse, Gather
 
 # app = Flask(__name__)
 #
@@ -56,28 +56,28 @@ from twilio.twiml.voice_response import VoiceResponse, Gather
 # if __name__ == "__main__":
 #     app.run(debug=True)
 
-# account_sid = 'AC0b246b4a64109de691920c953996cded'
-# auth_token = '39d2f1d67835d7f25733773c96ef402c'
-# client = Client(account_sid, auth_token)
-#
-# call = client.calls.create(
-#                             twiml="<Response><Gather action=\"/gather_results\" digits=\"1\"><Say>Garbage Detected... Garbage Detected... Garbage detected</Say></Gather></Response>",
-#                               from_='+13853967299',
-#                               to='+919731332758'
-#                           )
-#
-# print(call.sid)
-client = vonage.Client(
-    application_id="8184ce33",
-    private_key=VONAGE_APPLICATION_PRIVATE_KEY_PATH,
-)
+account_sid = 'AC0b246b4a64109de691920c953996cded'
+auth_token = '39d2f1d67835d7f25733773c96ef402c'
+client = Client(account_sid, auth_token)
 
-voice = vonage.Voice(client)
+call = client.calls.create(
+                            twiml="<Response><Gather action=\"/gather_results\" digits=\"1\"><Say>Garbage Detected... Garbage Detected... Garbage detected</Say></Gather></Response>",
+                              from_='+13853967299',
+                              to='+919731332758'
+                          )
 
-response = voice.create_call({
-    'to': [{'type': 'phone', 'number': "919731332758"}],
-    'from': {'type': 'phone', 'number': "919731332758"},
-    'ncco': [{'action': 'talk', 'text': 'This is a text to speech call from Nexmo'}]
-})
+print(call.sid)
+# client = vonage.Client(
+#     application_id="8184ce33",
+#     private_key=VONAGE_APPLICATION_PRIVATE_KEY_PATH,
+# )
 
-print(response)
+# voice = vonage.Voice(client)
+
+# response = voice.create_call({
+#     'to': [{'type': 'phone', 'number': "919731332758"}],
+#     'from': {'type': 'phone', 'number': "919731332758"},
+#     'ncco': [{'action': 'talk', 'text': 'This is a text to speech call from Nexmo'}]
+# })
+
+# print(response)

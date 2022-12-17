@@ -79,3 +79,9 @@ if len(indexes)>0:
 
 #plt.savefig("new.jpg")
 plt.imshow(image)
+# ll=open('emer.txt','r+')
+# ll_read=ll.read()
+# lat,lon=ll_read.split(",")
+# lat=lat[1:]
+# lon=lon[1:-2]
+# print(lat,lon)
