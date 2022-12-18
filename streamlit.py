@@ -44,8 +44,8 @@ def whatsapp1(lat, lon):
   client = Client(account_sid, auth_token)
 
   message = client.messages.create(
-    body='Hello there!',
-    persistent_action=[f'geo:{lat},{lon}|375 Beale St'],
+    body='Jyothi Institute of Technology,Bengaluru',
+    persistent_action=[f'geo:{lat},{lon}'],
     from_='whatsapp:+1415523-8886',
     to='whatsapp:+919731332758'
   )
@@ -53,7 +53,7 @@ def whatsapp1(lat, lon):
   print(message.sid)
 
 def email_generate(t1, t2, lattitude, longitude):
-  geolocator = Nominatim(user_agent="geoapiExercises")
+  geolocator = Nominatim(user_agent="MyApp")
   #tval = t2 - t1
   Longitude = longitude
   Lattitude = lattitude
@@ -66,6 +66,7 @@ def email_generate(t1, t2, lattitude, longitude):
   subject = "Test Email"
   case = "Attention Required!!"
   address = list(address.values())
+  print(address)
   address = ",".join(address)
   html = f"<h1>{case}</h1> <h2> Address: </h2><h3>{address}</h3><h3><a href={google_maps_link}>Location on GoogleMaps</a></h3><h2>Scrap detected Time:</h2><h3>{t1}</h3>"
   # Connect to your Gmail account and send the email
@@ -78,7 +79,7 @@ def email_generate(t1, t2, lattitude, longitude):
 #m1,m2,_=st.columns((0.5,1,4))
 # with m1:
 #     image = Image.open("icon.jpg")
-
+# #     st.image(image)
 image = Image.open("icon.jpg")
 st.image(image)
 # with m1:
@@ -153,13 +154,13 @@ with tab_cle:
             image_1=cv2.resize(image_1,(512,512))
             cv2.imwrite("kill" + ".jpg", image_1)
             ct = datetime.datetime.now()
-            t1 = threading.Thread(target=email_generate,args=[ct, 21, 12.9719, 77.5937])
+            t1 = threading.Thread(target=email_generate,args=[ct, 21, 12.841246155783589, 77.51093912239024])
             t1.start()
-            t2 = threading.Thread(target=sms,args=[ct, 12.9719, 77.5937])
+            t2 = threading.Thread(target=sms,args=[ct, 12.841246155783589,77.51093912239024])
             t2.start()
-            t3 = threading.Thread(target=whatsapp1, args=[12.9719, 77.5937])
+            t3 = threading.Thread(target=whatsapp1, args=[12.841246155783589,77.51093912239024])
             t3.start()
-            t4 = threading.Thread(target=call, args=[12.9719, 77.5937])
+            t4 = threading.Thread(target=call, args=[12.841246155783589,77.51093912239024])
             t4.start()
             #email_generate(ct, 21, 12.9719, 77.5937)
         with st.spinner('Wait for it...'):
@@ -169,10 +170,10 @@ with tab_cle:
                     time.sleep(0.07)
                     st.write(percent_complete)
                     my_bar.progress(percent_complete + 1)
-        dic = {'lat':12.9719,'lon':77.5937}
-        df = pd.DataFrame()
-        df['lat']=[12.9719]
-        df['lon']=[77.5937]
+        dic = {'lat':12.841246155783589,'lon':77.51093912239024}
+        df2 = pd.DataFrame()
+        df2['lat']=[12.841246155783589]
+        df2['lon']=[77.51093912239024]
 
 
         #call(12.9719,77.5937)
@@ -189,7 +190,7 @@ with tab_cle:
             st.write(ll_read)
         with m2:
             st.subheader("Location On Map:")
-            st.map(df)
+            st.map(df2)
         #st.subheader("Success!!")
         st.success("Success!! \nSMS/WhatsApp Message/Email sent to the Concerned Authority")
 with tab_sta:
