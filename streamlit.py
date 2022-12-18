@@ -80,7 +80,7 @@ def email_generate(t1, t2, lattitude, longitude):
 # with m1:
 #     image = Image.open("icon.jpg")
 # #     st.image(image)
-image = Image.open("icon.jpg")
+image = Image.open("Resources/UI Images/icon.jpg")
 st.image(image)
 # with m1:
 #     image = Image.open("title.jpg")
@@ -113,10 +113,10 @@ with tab_ove:
     st.subheader("The Need :-")
     _,m1, m2,_ = st.columns((1,2,2,1))
     with m1:
-        im = Image.open('overview_1.jpg')
+        im = Image.open('Resources/UI Images/overview_1.jpg')
         st.image(im)
     with m2:
-        im = Image.open('overview_2.jpg')
+        im = Image.open('Resources/UI Images/overview_2.jpg')
         st.image(im)
 with tab_cle:
     d1, d2 = st.columns(2)
@@ -290,5 +290,5 @@ with tab_sta:
         st.write('Number of images:', nr_images)
     st.write("\n")
     st.subheader("Division wise total waste(Wet and Mixed) Generation status:")
-    image = Image.open('stat.jpg')
+    image = Image.open('Resources/UI Images/stat.jpg')
     st.image(image)
