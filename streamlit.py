@@ -197,7 +197,7 @@ with tab_sta:
     st.header("TACO Dataset:")
     st.write("""It is an open image dataset of waste in the wild. It contains photos of litter taken under diverse environments, from tropical beaches to London streets. These images are manually labeled and segmented according to a hierarchical taxonomy to train and evaluate object detection algorithms.""")
     dataset_path = './data'
-    anns_file_path = dataset_path + '/' + 'annotations.json'
+    anns_file_path =  './annotations.json'
 
     # Read annotations
     with open(anns_file_path, 'r') as f:
