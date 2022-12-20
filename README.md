@@ -1,6 +1,8 @@
 # CleanSweep.AI
 A-EYE on SCATTERED GARBAGE! An AI & ML solution to solve some of the basic but most important problems in day to day life.  
 
+You can view the project here: https://manikanta-7342-cleansweep-streamlit-ankx0y.streamlit.app/
+
 Youtube Link: https://youtu.be/u2iq5j9OaN0
 
 Problem Statement:- Scattered scrap detection is a significant problem in many countries around the world. It can lead to a number of negative consequences, including environmental degradation, public health issues, and decreased quality of life for residents.
