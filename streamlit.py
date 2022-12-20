@@ -1,6 +1,6 @@
 import datetime
 import threading
-
+import geocoder
 import cv2
 
 import streamlit as st
@@ -15,9 +15,8 @@ from twilio.rest import Client
 import yagmail
 st.set_page_config(layout="wide")
 
-def sms(t1,lat,lon):
+def sms(t1,lat,lon,auth):
   sid = 'AC0b246b4a64109de691920c953996cded'
-  auth = 'f614d44a7a6552064bd1bce30f6aa879'
   geolocator = Nominatim(user_agent="geoapiExercises")
   location = geolocator.reverse(str(lat) + "," +str(lon))
   address = location.raw['address']
@@ -28,31 +27,28 @@ def sms(t1,lat,lon):
   cl = Client(sid, auth)
   cl.messages.create(body=f"{case}\nScrap detected Time: {t1}\nLocation: {google_maps_link}\nAddress: {address}", from_ = '+13853967299', to = '+919731332758')
 
-def call(lat,lon):
+def call(lat,lon,auth):
   account_sid = 'AC0b246b4a64109de691920c953996cded'
-  auth_token = 'f614d44a7a6552064bd1bce30f6aa879'
-  client = Client(account_sid, auth_token)
+  client = Client(account_sid, auth)
   call = client.calls.create(twiml="<Response><Gather action=\"/gather_results\" digits=\"1\"><Say>Attention Required!! Garbage Detected... Garbage Detected... Garbage detected</Say></Gather></Response>",
     from_='+13853967299',
-    to='+919731332758'
+    to='+91XXXXXXXXXX'
   )
   print(call.sid)
 
-def whatsapp1(lat, lon):
+def whatsapp1(lat, lon,auth):
   account_sid = 'AC0b246b4a64109de691920c953996cded'
-  auth_token = 'f614d44a7a6552064bd1bce30f6aa879'
-  client = Client(account_sid, auth_token)
-
+  client = Client(account_sid, auth)
   message = client.messages.create(
     body='Jyothi Institute of Technology,Bengaluru',
     persistent_action=[f'geo:{lat},{lon}'],
     from_='whatsapp:+1415523-8886',
-    to='whatsapp:+919731332758'
+    to='whatsapp:+91XXXXXXXXXX'
   )
 
   print(message.sid)
 
-def email_generate(t1, t2, lattitude, longitude):
+def email_generate(t1, lattitude, longitude,auth_pass):
   geolocator = Nominatim(user_agent="MyApp")
   #tval = t2 - t1
   Longitude = longitude
@@ -60,9 +56,8 @@ def email_generate(t1, t2, lattitude, longitude):
   location = geolocator.reverse(str(lattitude) + "," + str(Longitude))
   address = location.raw['address']
   google_maps_link = f"https://www.google.com/maps/search/?api=1&query={float(Lattitude)},{float(Longitude)}"
-  from_address = "maniadishu7342@gmail.com"
-  to_address = "nishank.satish@gmail.com"
-
+  from_address = "sendermail@abc.com"#Provide your mail id
+  to_address = "receivermail@xyz.com"#Provide receiver mail id
   subject = "Test Email"
   case = "Attention Required!!"
   address = list(address.values())
@@ -70,24 +65,15 @@ def email_generate(t1, t2, lattitude, longitude):
   address = ",".join(address)
   html = f"<h1>{case}</h1> <h2> Address: </h2><h3>{address}</h3><h3><a href={google_maps_link}>Location on GoogleMaps</a></h3><h2>Scrap detected Time:</h2><h3>{t1}</h3>"
   # Connect to your Gmail account and send the email
-  yag = yagmail.SMTP(from_address,"uuxfkicknbrtkxgx")
+  yag = yagmail.SMTP(from_address,auth_pass)
   contents=[html,yagmail.inline("./kill.jpg")]
   yag.send(to=to_address, subject=subject, contents=contents)
   print("Done")
 
 
-#m1,m2,_=st.columns((0.5,1,4))
-# with m1:
-#     image = Image.open("icon.jpg")
-# #     st.image(image)
+
 image = Image.open("Resources/UI Images/icon.jpg")
 st.image(image)
-# with m1:
-#     image = Image.open("title.jpg")
-#     st.image(image)
-# with m2:
-#     image = Image.open("icon.png")
-#     st.image(image)
 
 hide_streamlit_style = """
             <style>
@@ -119,6 +105,10 @@ with tab_ove:
         im = Image.open('Resources/UI Images/overview_2.jpg')
         st.image(im)
 with tab_cle:
+    #provide your auth id from twilio
+    auth= "YOUR_AUTH_ID"
+    #provide your gmail app password
+    app_pass = "Your_GMAIL_APP_PASSWORD"
     d1, d2 = st.columns(2)
     with d1:
         st.header("Assumptions:")
@@ -143,7 +133,7 @@ with tab_cle:
                 fp = Path(tmp_1_file.name)
                 fp.write_bytes(file.getvalue())
                 path = tmp_1_file.name
-            #os.system("python test.py "+path)
+            
 
             video_file1 = open(path, 'rb')
             st.subheader("Uploaded Video:")
@@ -154,15 +144,16 @@ with tab_cle:
             image_1=cv2.resize(image_1,(512,512))
             cv2.imwrite("kill" + ".jpg", image_1)
             ct = datetime.datetime.now()
-            t1 = threading.Thread(target=email_generate,args=[ct, 21, 12.841246155783589, 77.51093912239024])
+            g= geocoder.ip('me')
+            lat, lon = g.latlng
+            t1 = threading.Thread(target=email_generate,args=[ct,lat, lon,app_pass])
             t1.start()
-            t2 = threading.Thread(target=sms,args=[ct, 12.841246155783589,77.51093912239024])
+            t2 = threading.Thread(target=sms,args=[ct, lat,lon,auth])
             t2.start()
-            t3 = threading.Thread(target=whatsapp1, args=[12.841246155783589,77.51093912239024])
+            t3 = threading.Thread(target=whatsapp1, args=[lat,lon,auth])
             t3.start()
-            t4 = threading.Thread(target=call, args=[12.841246155783589,77.51093912239024])
+            t4 = threading.Thread(target=call, args=[lat,lon,auth])
             t4.start()
-            #email_generate(ct, 21, 12.9719, 77.5937)
         with st.spinner('Wait for it...'):
             my_bar = st.progress(0)
             with st.empty():
@@ -170,14 +161,9 @@ with tab_cle:
                     time.sleep(0.07)
                     st.write(percent_complete)
                     my_bar.progress(percent_complete + 1)
-        dic = {'lat':12.841246155783589,'lon':77.51093912239024}
         df2 = pd.DataFrame()
-        df2['lat']=[12.841246155783589]
-        df2['lon']=[77.51093912239024]
-
-
-        #call(12.9719,77.5937)
-        #sms(ct,12.9719,77.5937)
+        df2['lat']=[lat]
+        df2['lon']=[lon]
         ll=open('emer.txt','r+')
         ll_read=ll.read()
 
@@ -208,9 +194,6 @@ with tab_sta:
     nr_cats = len(categories)
     nr_annotations = len(anns)
     nr_images = len(imgs)
-    # see_data = st.expander('Click here to see the synthetic data  👉')
-    # with see_data:
-    #     st.dataframe(data=dataset)
     # Load categories and super categories
     cat_names = []
     super_cat_names = []
