@@ -5,7 +5,7 @@ You can view the project here: https://manikanta-7342-cleansweep-streamlit-ankx0
 
 Youtube Link: https://youtu.be/u2iq5j9OaN0
 
-Problem Statement:- Scattered scrap detection is a significant problem in many countries around the world. It can lead to a number of negative consequences, including environmental degradation, public health issues, and decreased quality of life for residents.
+Problem Statement:- Scattered scrap detection is a significant problem in many countries around the world. It can lead to a number of negative consequences, including environmental degradation, public health issues and decreased quality of life for residents.
 Garbage can accumulate in public spaces, such as streets, parks, and beaches, due to individuals littering or improperly disposing of waste.
 In some areas, waste collection systems may be inadequate or inefficient, leading to a build-up of garbage in certain areas.
 
